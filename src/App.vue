@@ -8,7 +8,7 @@
       dark
     >
       <v-list>
-        <v-list-tile v-for="item in menuItems" v-bind:key="item.title" router v-bind:to="item.link" tag="span" dark>
+        <v-list-tile v-for="item in menuItems" v-bind:key="item.title" v-bind:to="item.link" tag="span" dark>
           <v-list-tile-action>
             <v-icon>{{item.icon}}</v-icon>
           </v-list-tile-action>
@@ -25,7 +25,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn v-for="item in menuItems" v-bind:key="item.title" router v-bind:to="item.link" flat>
+        <v-btn v-for="item in menuItems" v-bind:key="item.title" v-bind:to="item.link" flat>
           <v-icon left>{{item.icon}}</v-icon>
           {{item.title}}
         </v-btn>
