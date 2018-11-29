@@ -16,8 +16,8 @@
         
         <v-layout row wrap class="mt-2">
             <v-flex xs12>
-                <v-carousel>
-                    <v-carousel-item v-for="meetup in meetups" v-bind:key="meetup.id">
+                <v-carousel style="cursor: pointer;">
+                    <v-carousel-item v-for="meetup in meetups" v-bind:key="meetup.id" @click="onLoadMeetup(meetup.id)">
                         <v-parallax v-bind:src="meetup.imageUrl">
                             <div class="title">
                                 {{meetup.title}}
@@ -47,6 +47,11 @@
                     {imageUrl: 'https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=1200', id: 'dnskjandkjanj123', title: 'Meetup in New York'},
                     {imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Seine_and_Eiffel_Tower_from_Tour_Saint_Jacques_2013-08.JPG/1200px-Seine_and_Eiffel_Tower_from_Tour_Saint_Jacques_2013-08.JPG', id: 'dnskjandkjanj124', title: 'Meetup in Paris'}
                 ]
+            }
+        },
+        methods: {
+            onLoadMeetup: function(id){
+                this.$router.push('/meetups/' + id);
             }
         }
     }
