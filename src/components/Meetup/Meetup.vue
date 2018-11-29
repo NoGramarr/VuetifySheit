@@ -4,14 +4,14 @@
             <v-flex xs12>
                 <v-card>
                     <v-card-title>
-                        <h4 class="primary--text">My Meetup</h4>
+                        <h4 class="primary--text">{{meetup.title}}</h4>
                     </v-card-title>
                     <v-card-media 
-                    src="https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=1200"
+                    v-bind:src="meetup.imageUrl"
                     height="400px">
                     </v-card-media>
                     <v-card-text>
-                        <div class="error--text">23rd December 2019 - Where it takes place</div>
+                        <div class="error--text">{{meetup.date}} - Where it takes place</div>
                         <div>
                             &nbsp;&nbsp;&nbsp;&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quam lacus suspendisse faucibus interdum posuere lorem ipsum. Vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Ultricies tristique nulla aliquet enim tortor at auctor urna nunc. Nam aliquam sem et tortor consequat id porta nibh venenatis. Habitasse platea dictumst quisque sagittis purus sit amet volutpat consequat. Non arcu risus quis varius. Nibh nisl condimentum id venenatis a condimentum vitae sapien pellentesque. Odio tempor orci dapibus ultrices in iaculis nunc sed. Ut etiam sit amet nisl purus in mollis nunc sed. Cursus sit amet dictum sit amet justo. Sagittis orci a scelerisque purus semper eget duis at tellus.<br>
                             &nbsp;&nbsp;&nbsp;&nbsp;Fringilla est ullamcorper eget nulla facilisi etiam dignissim diam quis. In metus vulputate eu scelerisque. Ultricies mi quis hendrerit dolor magna. Sed arcu non odio euismod lacinia at quis. Volutpat lacus laoreet non curabitur gravida arcu ac tortor. Vestibulum sed arcu non odio. Faucibus interdum posuere lorem ipsum dolor sit amet consectetur. Massa ultricies mi quis hendrerit dolor. Cras pulvinar mattis nunc sed blandit libero volutpat sed. Neque volutpat ac tincidunt vitae semper quis lectus nulla at. Nec nam aliquam sem et tortor. Habitant morbi tristique senectus et. Sagittis aliquam malesuada bibendum arcu. Vivamus at augue eget arcu dictum varius. Dolor purus non enim praesent elementum facilisis leo vel fringilla.<br>
@@ -32,7 +32,11 @@
 
 <script>
     export default{
+        props: ['id'],
         computed: {
+            meetup(){
+                return this.$store.getters.loadedMeetup(this.id);
+            }
         }
     }
 </script>
