@@ -31,7 +31,7 @@ export const store = new Vuex.Store({
 
     },
     getters: {
-        featuredMeetups: (state, getters) => {
+        featuredMeetups(state, getters){
             return getters.loadedMeetups.slice(0, 5);
         },
         loadedMeetups(state){
