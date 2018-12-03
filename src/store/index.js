@@ -10,13 +10,17 @@ export const store = new Vuex.Store({
                 imageUrl: 'https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=1200', 
                 id: 'dnskjandkjanj123', 
                 title: 'Meetup in New York',
-                date: '2019-12-23'
+                date: new Date(),
+                location: 'New York',
+                description: 'New York, New York'
             },
             {
                 imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Seine_and_Eiffel_Tower_from_Tour_Saint_Jacques_2013-08.JPG/1200px-Seine_and_Eiffel_Tower_from_Tour_Saint_Jacques_2013-08.JPG', 
                 id: 'dnskjandkjanj124', 
                 title: 'Meetup in Paris',
-                date: '2018-12-23'
+                date: new Date(),
+                location: 'Paris',
+                description: 'It\'s fokn Paris!'
             }
         ],
         user: {
