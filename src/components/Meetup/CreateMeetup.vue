@@ -7,7 +7,7 @@
         </v-layout>
         <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-                <form>
+                <form @submit.prevent="onCreateMeetup">
                     <v-layout row>
                         <v-flex xs12 sm6 offset-sm3>
                             <v-text-field
@@ -40,7 +40,7 @@
                     </v-layout>
                     <v-layout row>
                         <v-flex xs12 sm6 offset-sm3>
-                            <img v-bind:src="imageUrl">
+                            <v-img v-bind:src="imageUrl" style="width:75%;left:12.5%"></v-img>
                         </v-flex>
                     </v-layout>
                     <v-layout row>
@@ -52,6 +52,11 @@
                                 v-model="description"
                                 multi-line
                                 required></v-text-field>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout row>
+                        <v-flex xs12 sm6 offset-sm3>
+                            <v-btn class="primary" v-bind:disabled="!formIsValid" type="submit">Create Meetup</v-btn>
                         </v-flex>
                     </v-layout>
                 </form>
@@ -68,6 +73,30 @@
                 location: '',
                 imageUrl: '',
                 description: ''
+            }
+        },
+        computed: {
+            formIsValid(){
+                return this.title !== '' &&
+                    this.location !== '' &&
+                    this.description !== '' &&
+                    this.imageUrl !== ''
+            }
+        },
+        methods: {
+            onCreateMeetup(){
+                if(!this.formIsValid){
+                    return;
+                }
+                const meetupData = {
+                    title: this.title,
+                    location: this.location,
+                    imageUrl: this.imageUrl,
+                    description: this.description,
+                    date: new Date()
+                }
+                this.$store.dispatch('createMeetup', meetupData);
+                this.$router.push('/meetups');
             }
         }
     }
