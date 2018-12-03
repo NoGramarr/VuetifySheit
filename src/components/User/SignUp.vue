@@ -2,10 +2,17 @@
     <v-container>
         <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
+                <v-layout row v-if="error">
+                    <v-container>
+                        <v-flex xs12>
+                            <app-alert @dismissed='onDismissed' v-bind:text="error.message"></app-alert>
+                        </v-flex>
+                    </v-container>
+                </v-layout>
                 <v-card>
                     <v-card-text>
                         <v-container>
-                            <form>
+                            <form v-on:submit.prevent="onSignup">
                                 <v-layout row>
                                     <v-flex xs12>
                                         <v-text-field 
@@ -42,7 +49,11 @@
                                 </v-layout>
                                 <v-layout row>
                                     <v-flex xs12>
-                                        <v-btn type="submit">Sign Up</v-btn>
+                                        <v-btn type="submit" v-bind:disabled="loading" v-bind:loading="loading">Sign Up
+                                            <span slot="loader" class="custom-loader">
+                                                <v-icon light>cached</v-icon>
+                                            </span>
+                                        </v-btn>
                                     </v-flex>
                                 </v-layout>
                             </form>
@@ -66,16 +77,30 @@
         computed: {
             comparePasswords(){
                 return this.password !== this.confirmPassword?'Passwords do not match':'';
+            },
+            user(){
+                return this.$store.getters.user;
+            },
+            error(){
+                return this.$store.getters.error;
+            },
+            loading(){
+                return this.$store.getters.loading;
+            }
+        },
+        watch: {
+            user(value){
+                if(value !== null && value !== undefined){
+                    this.$router.push('/');
+                }
             }
         },
         methods: {
             onSignup(){
-                // Vuex
-                console.log({
-                    email: this.email,
-                    password: this.password,
-                    confirmPassword: this.confirmPassword
-                });
+                this.$store.dispatch('signUserUp', {email: this.email, password: this.password});
+            },
+            onDismissed(){
+                this.$store.dispatch('clearError');
             }
         } 
     }
