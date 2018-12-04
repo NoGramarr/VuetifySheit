@@ -6,29 +6,15 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        loadedMeetups: [
-            {
-                imageUrl: 'https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=1200', 
-                id: 'dnskjandkjanj123', 
-                title: 'Meetup in New York',
-                date: new Date(),
-                location: 'New York',
-                description: 'New York, New York'
-            },
-            {
-                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Seine_and_Eiffel_Tower_from_Tour_Saint_Jacques_2013-08.JPG/1200px-Seine_and_Eiffel_Tower_from_Tour_Saint_Jacques_2013-08.JPG', 
-                id: 'dnskjandkjanj124', 
-                title: 'Meetup in Paris',
-                date: new Date(),
-                location: 'Paris',
-                description: 'It\'s fokn Paris!'
-            }
-        ],
+        loadedMeetups: [],
         user: null,
         loading: false,
         error: null
     },
     mutations: {
+        setLoadedMeetups(state, payload){
+            state.loadedMeetups = payload;
+        },
         createMeetup(state, payload){
             state.loadedMeetups.push(payload);
         },
@@ -46,6 +32,29 @@ export const store = new Vuex.Store({
         }
     },
     actions: {
+        loadMeetups({commit}){
+            commit('setLoading', true);
+            firebase.database().ref('meetups').once('value')
+                .then((data)=>{
+                    const meetups = [];
+                    const obj = data.val();
+                    for(let key in obj){
+                        meetups.push({
+                            id: key,
+                            title: obj[key].title,
+                            description: obj[key].description,
+                            imageUrl: obj[key].imageUrl,
+                            date: obj[key].date
+                        });
+                    }
+                    commit('setLoadedMeetups', meetups);
+                    commit('setLoading', false);
+                })
+                .catch((error)=>{
+                    console.log(error);
+                    commit('setLoading', false);
+                });
+        },
         createMeetup({commit}, payload){
             const meetup = {
                 title: payload.title,

@@ -24,5 +24,6 @@ new Vue({
       projectId: "cevameetupfrumos",
       storageBucket: "cevameetupfrumos.appspot.com"
     });
+    this.$store.dispatch('loadMeetups');
   }
 }).$mount('#app')
